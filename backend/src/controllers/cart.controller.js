@@ -12,10 +12,6 @@ const getCart = (req, res) => {
 const addToCart = (req, res) => {
   const { productId, quantity } = req.body;
 
-  // Basic validations
-  if (!productId || !quantity) {
-    throw new ApiError(400, "productId and quantity required");
-  }
   // Check if product already exists in cart
   const existingItem = cart.find((item) => item.productId === productId);
   if (existingItem) {

@@ -1,10 +1,11 @@
 import express from "express";
 import { getCart, addToCart } from "../controllers/cart.controller.js";
+import { validateCartRequest } from "../middleware/validation.middleware.js";
 
 const router = express.Router();
 // Fetch cart items
 router.get("/", getCart);
 // Add item to cart
-router.post("/", addToCart);
+router.post("/", validateCartRequest, addToCart);
 
 export default router;
