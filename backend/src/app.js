@@ -12,13 +12,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Health check controller
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    message: "Server is healthy",
+  });
+});
 app.get("/", (req, res) => {
   res.send("app running");
 });
 
 // Routing
-app.use("/products", productRouter);
-app.use("/cart", cartRouter);
+app.use("/api/v1/products", productRouter);
+app.use("/api/v1/cart", cartRouter);
 
 app.use(errorHandler);
 
