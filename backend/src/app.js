@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import productRouter from "./routes/product.routes.js";
+import cartRouter from "./routes/cart.routes.js";
 
 dotenv.config();
 
@@ -17,5 +18,6 @@ app.get("/", (req, res) => {
 
 // Routing
 app.use("/products", productRouter);
+app.use("/cart", cartRouter);
 
 export default app;
