@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
-import "../styles/products.css";
+import "../styles/navbar.css";
 
 const Navbar = () => {
   const { cart } = useCart();
@@ -9,13 +9,12 @@ const Navbar = () => {
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <nav
-      className="navbar"
-      style={{ padding: "10px", borderBottom: "1px solid #ccc" }}
-    >
-      <Link to="/">Products</Link>
+    <nav className="navbar">
+      <Link className="navbar-heading" to="/">
+        Products
+      </Link>
 
-      <Link to="/cart" style={{ marginLeft: "20px" }}>
+      <Link className="navbar-heading" to="/cart">
         Cart ({totalItems})
       </Link>
     </nav>

@@ -1,5 +1,4 @@
 import { ApiResponse } from "../utils/api-response.js";
-import { ApiError } from "../utils/api-error.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
 let cart = [];
@@ -25,4 +24,10 @@ const addToCart = asyncHandler(async (req, res) => {
   return res.status(200).json(new ApiResponse(200, cart, "Item added to cart"));
 });
 
-export { getCart, addToCart };
+const removeFromCart = asyncHandler((req, res) => {
+  const productId = Number(req.params.productId);
+  cart = cart.filter((item) => item.productId !== productId);
+  res.json(cart);
+});
+
+export { getCart, addToCart, removeFromCart };

@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import type { CartItem } from "../types/cart";
-import { getCart } from "../services/api";
+import { getCart, removeFromCartAPI } from "../services/api";
 
 // Context shape
 interface CartContextType {
@@ -17,7 +17,14 @@ export const CartContext = createContext<CartContextType | undefined>(
 
 // Provider component
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    const saved = localStorage.getItem("cart");
+    return saved ? JSON.parse(saved) : [];
+  });
+  // Save cart to localStorage
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -46,8 +53,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       return [...prev, { productId, quantity }];
     });
   };
-  const removeFromCart = (productId: number) => {
+  const removeFromCart = async (productId: number) => {
     setCart((prev) => prev.filter((item) => item.productId !== productId));
+    await removeFromCartAPI(productId);
   };
 
   const updateQuantity = (productId: number, quantity: number) => {
