@@ -18,9 +18,17 @@ const Cart = () => {
     fetchProducts();
   }, []);
 
+  //  Calculate total cart price
   if (cart.length === 0) {
     return <p>Your cart is empty</p>;
   }
+  const totalPrice = cart.reduce((sum, item) => {
+    const product = products.find((p) => p.id === item.productId);
+
+    if (!product) return sum;
+
+    return sum + product.price * item.quantity;
+  }, 0);
 
   return (
     <div>
@@ -54,6 +62,7 @@ const Cart = () => {
           </div>
         );
       })}
+      <h2>Total: ₹{totalPrice}</h2>
     </div>
   );
 };

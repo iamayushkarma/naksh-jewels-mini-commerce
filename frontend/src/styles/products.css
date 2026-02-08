@@ -38,3 +38,28 @@
 .skeleton-text.small {
   width: 60%;
 }
+
+/* toast */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: black;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+}
+
+.app-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+/* navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid #ddd;
+}

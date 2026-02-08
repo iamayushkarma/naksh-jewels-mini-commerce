@@ -2,6 +2,7 @@ import type { Product } from "../types/product";
 import { useCart } from "../hooks/useCart";
 import { addToCartAPI } from "../services/api";
 import { useState } from "react";
+import Toast from "./Toast";
 
 interface ProductCardProps {
   product: Product;
@@ -9,12 +10,17 @@ interface ProductCardProps {
 const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
   const [isAdding, setIsAdding] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   const handleAddToCart = async () => {
     if (isAdding) return; // prevent double click
 
     try {
       setIsAdding(true);
+      // hide after 2 seconds
+      setTimeout(() => {
+        setShowToast(false);
+      }, 2000);
 
       addToCart(product.id, 1); // update context
       await addToCartAPI(product.id, 1); // sync backend
@@ -33,6 +39,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <button onClick={handleAddToCart} disabled={isAdding}>
         {isAdding ? "Adding..." : "Add to Cart"}
       </button>
+      {showToast && <Toast message="Added to cart!" />}
     </div>
   );
 };
