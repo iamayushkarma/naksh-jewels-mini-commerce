@@ -91,20 +91,51 @@ naksh-jewels-mini-commerce/
 │   ├── public/
 │   │   └── vite.svg
 │   ├── src/
+│   │   ├── assets/
+│   │   │   └── react.svg
 │   │   ├── components/
+│   │   │   ├── Navbar.tsx
+│   │   │   ├── ProductCard.tsx
+│   │   │   ├── SkeletonCard.tsx
+│   │   │   └── Toast.tsx
 │   │   ├── context/
+│   │   │   ├── CartContext.tsx
+│   │   │   └── ToastContext.tsx
 │   │   ├── hooks/
+│   │   │   ├── useCart.ts
+│   │   │   └── useToast.ts
 │   │   ├── pages/
+│   │   │   ├── Cart.tsx
+│   │   │   └── Products.tsx
 │   │   ├── services/
+│   │   │   └── api.ts
 │   │   ├── styles/
+│   │   │   ├── cart.css
+│   │   │   ├── navbar.css
+│   │   │   └── products.css
 │   │   ├── types/
+│   │   │   ├── api.ts
+│   │   │   ├── cart.ts
+│   │   │   └── product.ts
 │   │   ├── App.tsx
+│   │   ├── index.css
 │   │   └── main.tsx
 │   ├── .env
+│   ├── .gitignore
 │   ├── Dockerfile
+│   ├── README.md
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
 │   └── vite.config.ts
+├── .gitignore
+├── README.md
 ├── docker-compose.yml
-└── README.md
+
 ```
 
 ---
