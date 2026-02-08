@@ -8,7 +8,9 @@ interface CartContextType {
   addToCart: (productId: number, quantity: number) => void;
 }
 // Create context
-const CartContext = createContext<CartContextType | undefined>(undefined);
+export const CartContext = createContext<CartContextType | undefined>(
+  undefined,
+);
 
 // Provider component
 const CartProvider = ({ children }: { children: ReactNode }) => {
