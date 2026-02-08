@@ -1,5 +1,5 @@
 import type { Product } from "../types/product";
-import { useCart } from "../hooks/useCart.js";
+import { useCart } from "../hooks/useCart";
 import { addToCartAPI } from "../services/api";
 
 interface ProductCardProps {
