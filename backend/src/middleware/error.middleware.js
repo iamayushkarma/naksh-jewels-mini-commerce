@@ -1,4 +1,4 @@
-import { ApiError } from "../utils/ApiError.js";
+import { ApiError } from "../utils/api-error.js";
 
 const errorHandler = (error, req, res, next) => {
   let statusCode = 500;
