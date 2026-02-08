@@ -6,6 +6,8 @@ import type { CartItem } from "../types/cart";
 interface CartContextType {
   cart: CartItem[];
   addToCart: (productId: number, quantity: number) => void;
+  removeFromCart: (productId: number) => void;
+  updateQuantity: (productId: number, quantity: number) => void;
 }
 // Create context
 export const CartContext = createContext<CartContextType | undefined>(
@@ -30,9 +32,22 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       return [...prev, { productId, quantity }];
     });
   };
+  const removeFromCart = (productId: number) => {
+    setCart((prev) => prev.filter((item) => item.productId !== productId));
+  };
+
+  const updateQuantity = (productId: number, quantity: number) => {
+    setCart((prev) =>
+      prev.map((item) =>
+        item.productId === productId ? { ...item, quantity } : item,
+      ),
+    );
+  };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, updateQuantity }}
+    >
       {children}
     </CartContext.Provider>
   );
