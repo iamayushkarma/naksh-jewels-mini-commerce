@@ -2,15 +2,16 @@ import type { Product } from "../types/product";
 import { useCart } from "../hooks/useCart";
 import { addToCartAPI } from "../services/api";
 import { useState } from "react";
-import Toast from "./Toast";
+import { useToast } from "../hooks/useToast";
 
 interface ProductCardProps {
   product: Product;
 }
+
 const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
+  const { showToast } = useToast();
   const [isAdding, setIsAdding] = useState(false);
-  const [showToast, setShowToast] = useState(false);
 
   const handleAddToCart = async () => {
     if (isAdding) return;
@@ -18,16 +19,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
     try {
       setIsAdding(true);
 
-      addToCart(product.id, 1); // update context
-      await addToCartAPI(product.id, 1); // sync backend
+      addToCart(product.id, 1);
+      await addToCartAPI(product.id, 1);
 
-      // SHOW toast
-      setShowToast(true);
-
-      // hide after 2 seconds
-      setTimeout(() => {
-        setShowToast(false);
-      }, 2000);
+      // Trigger global toast
+      showToast("Added to cart!");
     } catch (error) {
       console.error("Failed to add to cart");
     } finally {
@@ -40,8 +36,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <img src={product.image} width={120} />
       <h3>{product.name}</h3>
       <p>₹{product.price}</p>
-      <button onClick={handleAddToCart}>Add to Cart</button>
-      {showToast && <Toast message="Added to cart!" />}
+      <button onClick={handleAddToCart} disabled={isAdding}>
+        {isAdding ? "Adding..." : "Add to Cart"}
+      </button>
     </div>
   );
 };
