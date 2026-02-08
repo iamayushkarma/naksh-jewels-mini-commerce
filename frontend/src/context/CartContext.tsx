@@ -1,6 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import type { CartItem } from "../types/cart";
+import { getCart } from "../services/api";
 
 // Context shape
 interface CartContextType {
@@ -17,6 +18,19 @@ export const CartContext = createContext<CartContextType | undefined>(
 // Provider component
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const data = await getCart();
+        setCart(data);
+      } catch (error) {
+        console.error("Failed to load cart");
+      }
+    };
+
+    fetchCart();
+  }, []);
 
   const addToCart = (productId: number, quantity: number) => {
     setCart((prev) => {

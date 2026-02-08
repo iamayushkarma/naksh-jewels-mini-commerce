@@ -2,12 +2,13 @@ import axios from "axios";
 import type { Product } from "../types/product";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api/v1",
+  baseURL: "http://localhost:8000/api/v1",
 });
 // Fetch all products
 const getProducts = async (): Promise<Product[]> => {
   const res = await api.get("/products");
-  return res.data.data; // because backend wraps response
+  console.log(res);
+  return res.data; // because backend wraps response
 };
 
 // Get cart items

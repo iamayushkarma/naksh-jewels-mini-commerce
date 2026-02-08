@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../services/api";
 import type { Product } from "../types/product";
 import ProductCard from "../components/ProductCard";
+import "../styles/products.css";
+import SkeletonCard from "../components/SkeletonCard";
 
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -22,16 +24,25 @@ const Products = () => {
     fetchProduct();
   }, []);
   // Loading state
-  if (loading) return <p>Loading products...</p>;
+  if (loading)
+    return (
+      <div className="product-grid">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <SkeletonCard key={i} />
+        ))}
+      </div>
+    );
   // Error state
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
+    <div className="product-card">
       <h1>Products</h1>
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
+      <div className="product-grid">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
     </div>
   );
 };
